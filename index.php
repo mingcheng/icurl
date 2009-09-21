@@ -14,7 +14,7 @@ require_once 'inc/func.inc.php';
 $_CONFIG = parse_ini_file('config.ini');
 
 if (empty($_POST)) {
-    die(include 'template.inc.html');
+    die(include 'inc/template.inc.html');
 }
 
 $request_url  = get_request_var('q', '');
