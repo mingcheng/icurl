@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iCurl - PHP Curl Client</title>
+        <meta name="author" content="手气不错" />
+        <link rel="icon" type="image/x-icon" href="http://www.gracecode.com/favicon.ico" />
+        <link rel="stylesheet" href="" type="text/css" media="screen" />
+    </head>
+    <body>
+        <form method="post" action="">
+            <fieldset>
+                <legend>iCurl - PHP Curl Client</legend>
+                <p><label>Request[<sub title="请求数据的地址">?</sub>]:</label>
+                <select name="r">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="DELETE">DELETE</option>
+                    <option value="PUT">PUT</option>
+                </select>
+                <span><input type="text" name="q" value="" /> <input size="4" maxlength="4" type="text" name="p" value="80" />
+                </p>
+                <p>
+                    <label>Timeout[<sub title="设置超时时间">?</sub>]</label>: 
+                    <select name="t">
+                        <option>1</option>
+                        <option selected="selected">2</option>
+                        <option>3</option>
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                    </select>
+                    <input type="checkbox" name="h" />
+                        <label>Header[<sub title="显示 HTTP 头">?</sub>]</label>
+                    <input type="checkbox" name="b" />
+                        <label>Binary[<sub title="二进制格式返回">?</sub>]</label>
+                </p>
+                <p><label>User Agent[<sub title="请求数据需要使用的 User-Agent">?</sub>]</label>: <input type="text" name="ag" value="" /></p>
+                <p>
+
+                    <input type="checkbox" name="f" />
+                        <label>Follow Location[<sub title="跟随 HTTP 跳转">?</sub>]</label>
+
+                    <input type="checkbox" name="a" />
+                    <label>Auth[<sub title="是否需要用户验证">?</sub>]</label>
+                </p>
+                <ul>
+                    <li>User: <input autocomplete="off" type="text" name="u" value="" /></li>
+                    <li>Password:<input autocomplete="off" type="password" name="p" value="" /></li>
+                </ul>
+                <label>Extra Params[<sub title="是否需要额外的参数">?</sub>]</label></p>
+                <ul>
+                    <li><input type="text" name="n[]" value="" />: <input type="text" name="v[]" value="" /><button>X</button></li>
+                    <li><button>+</button></li>
+                </ul>
+                <p><input type="submit" value="发送请求" /></p>
+            </fieldset>
+        </form>
+    </body>
+</html>
