@@ -24,6 +24,7 @@ $port         = intval($port    = get_request_var('p', '80')) ? $port : 80;
 $timeout      = intval($timeout = get_request_var('t', '2'))  ? $timeout: 2;
 $params_name  = get_request_var('n', array());
 $params_value = get_request_var('v', array());
+$referer      = get_request_var('ref', '');
 
 // 验证
 
@@ -35,8 +36,8 @@ $options = array(
     CURLOPT_USERAGENT => $agent,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_URL => $request_url,
+    CURLOPT_REFERER => $referer,
 //    CURLOPT_HEADER => true
-//    CURLOPT_REFERER
 );
 
 // 是否显示 HTTP 头
