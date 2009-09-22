@@ -24,6 +24,7 @@ $port         = intval($port    = get_request_var('p', '80')) ? $port : 80;
 $timeout      = intval($timeout = get_request_var('t', '2'))  ? $timeout: 2;
 $params_name  = get_request_var('n', array());
 $params_value = get_request_var('v', array());
+$charset      = get_request_var('c', 'utf-8');
 $referer      = get_request_var('ref', '');
 
 // 验证
@@ -59,5 +60,5 @@ curl_setopt_array($handle, $options);
 $result = curl_exec($handle);
 header('Content-type: text/plain');
 //parse_http_response
-echo $result;
+echo iconv($charset, 'utf-8', $result);
 curl_close($handle);
