@@ -18,6 +18,7 @@ if (empty($_POST)) {
 }
 
 $request_url  = get_request_var('q', '');
+$need_auth    = get_request_var('a', '') ? true : false;
 $request_type = get_request_var('r', 'GET');
 $agent        = get_request_var('ag', '');
 $port         = intval($port    = get_request_var('p', '80')) ? $port : 80;
@@ -26,6 +27,8 @@ $params_name  = get_request_var('n', array());
 $params_value = get_request_var('v', array());
 $charset      = get_request_var('c', 'utf-8');
 $referer      = get_request_var('ref', '');
+$http_version = get_request_var('ver', '');
+
 
 // 验证
 
@@ -51,9 +54,23 @@ if (!empty($params_name) && !empty($params_value)) {
     $options[CURLOPT_POSTFIELDS] = build_params($params_name, $params_value);
 }
 
-//$options[CURLOPT_BINARYTRANSFER] = true;
+if ($need_auth) {
+    $options[CURLOPT_HTTPAUTH] = CURLAUTH_ANY;
+    $username = get_request_var('user', '');
+    $password = get_request_var('pass', '');
+    $options[CURLOPT_USERPWD] = sprintf('%s:%s', $username, $password);
+}
 
-//var_dump($options);
+switch($http_version) {
+    case 'v1.0':
+        $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_0;
+        break;
+    case 'v1.1':
+        $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
+        break;
+    default:
+        $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_NONE;
+}
 
 $handle = curl_init();
 curl_setopt_array($handle, $options);
