@@ -10,14 +10,15 @@
  *     [+]new feature  [*]improvement  [!]change  [x]bug fix
  *
  * [+] 2009-09-28
- *      优化界面，完善脚本
+ *      优化界面，完善脚本，增加 Sqlite 本地存储参数功能
  *
  * [+] 2009-09-21
  *      初始化版本，完成基本功能
  */
 
-define('ICURL_VERSION', '$Id$');
-define('ICURL_DATABASE', 'data/sqlite.db');
+define('ICURL_VERSION',  '$Id$');
+define('ICURL_DATABASE', 'data/sqlite.db');                   // 本地数据库路径
+define('ICURL_BASEURL',  'http://lab.gracecode.com/icurl/');  // 应用 URL 地址
 
 require_once 'inc/func.inc.php';
 
@@ -29,13 +30,6 @@ if (!in_array('curl', $extensions) || !in_array('filter', $extensions)
 }
 
 $Database = new PDO('sqlite:'.ICURL_DATABASE);
-
-/*
-$Database->exec('DROP TABLE icurl');
-$Database->exec('CREATE TABLE icurl (id integer primary key, data BLOB not NULL UNIQUE, flag varchar(255) not NULL UNIQUE, _date NUMERIC)');
-var_dump($Database->errorInfo());
-exit;
- */
 
 if (!empty($_POST)) {
     // 根据 POST 信息获取参数
