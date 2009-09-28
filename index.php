@@ -6,20 +6,25 @@
  * @author mingcheng<i.feelinglucky@gmail.com>
  * @date   2009-09-17
  * @link   http://www.gracecode.com/
+ * @change
+ *     [+]new feature  [*]improvement  [!]change  [x]bug fix
+ *
+ * [+] 2009-09-28
+ *      优化界面，完善脚本
+ *
+ * [+] 2009-09-21
+ *      初始化版本，完成基本功能
  */
 
-// version
 define('ICURL_VERSION', '$Id$');
 
 require_once 'inc/func.inc.php';
 
-// 读取配置文件
-$_CONFIG = parse_ini_file('config.ini');
-
 if (empty($_POST)) {
-    die(include 'inc/template.inc.html');
+    echo_template();
 }
 
+// 获取参数
 $request_url  = get_request_var('q', '');
 $need_auth    = get_request_var('a', '') ? true : false;
 $binary       = get_request_var('b', '');
@@ -33,7 +38,10 @@ $charset      = get_request_var('c', 'utf-8');
 $referer      = get_request_var('ref', '');
 $http_version = get_request_var('ver', '');
 
-// 验证
+if(filter_var($request_url, FILTER_VALIDATE_URL) === FALSE) {
+    echo_result("Sorry, $request_url not valid!");
+    exit;
+}
 
 $options = array(
     CURLOPT_CUSTOMREQUEST => $request_type,
@@ -102,9 +110,7 @@ if ($binary) {
     header('Content-Disposition:attachment; filename="'.basename($options[CURLOPT_URL]).'"');
     echo $result;
 } else {
-    //header('Content-type: text/plain');
-    $result = iconv($charset, 'utf-8', $result);
-    @include 'inc/iframe.inc.html';
+    echo_result(iconv($charset, 'utf-8', $result));
 }
 
 curl_close($handle);

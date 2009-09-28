@@ -1,7 +1,6 @@
 <?php
 // vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8 nobomb:
 
-
 /**
  * 获取外部请求数据，如 POST、GET
  *
@@ -43,6 +42,8 @@ function get_request_var($request_name, $default_value = null, $method = "all") 
     }
 }
 
+
+// 根据参数拼接 URL 字符串
 function build_params($name, $value) {
     for ($result = array(), $i = 0, $len = sizeof($name); $i < $len; $i++) {
         if (strlen($name[$i])) {
@@ -53,27 +54,12 @@ function build_params($name, $value) {
     return implode('&', $result);
 }
 
-function parse_http_response ($string) {
-    $headers = array(); $content = ''; $str = strtok($string, "\n"); $h = null;
-    while ($str !== false) {
-        if ($h and trim($str) === '') {
-            $h = false;
-            continue;
-        }
-        if ($h !== false and false !== strpos($str, ':')) {
-            $h = true;
-            list($headername, $headervalue) = explode(':', trim($str), 2);
-            $headername = strtolower($headername);
-            $headervalue = ltrim($headervalue);
-            if (isset($headers[$headername]))
-                $headers[$headername] .= ',' . $headervalue;
-            else
-                $headers[$headername] = $headervalue;
-        }
-        if ($h === false) {
-            $content .= $str."\n";
-        }
-        $str = strtok("\n");
-    }
-    return array($headers, trim($content));
+// 返回结果页
+function echo_result($result) {
+    @include 'inc/iframe.inc.html';
+}
+
+// 显示主页面
+function echo_template() {
+    die(@include 'inc/template.inc.html');
 }
