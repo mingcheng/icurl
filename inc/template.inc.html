@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>iCurl - PHP Curl Client</title>
         <meta name="author" content="手气不错" />
+        <meta name="version" content="$Id$" />
         <link rel="icon" type="image/x-icon" href="http://www.gracecode.com/favicon.ico" />
         <link rel="stylesheet" href="http://a.tbcdn.cn/tbra/2.0/reset-grids.css" type="text/css" media="screen" />
         <!--
@@ -83,9 +84,11 @@
                 </div>
                 <p><input class="button" type="submit" value="发送请求" /></p>
                 <textarea id="result" class="hidden"></textarea>
+                <span class="ver"><?php 
+                    echo ICURL_VERSION; 
+                ?></span>
             </fieldset>
         </form>
-        <span>$Id$</span>
     </div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
     <script type="text/javascript"><?php include 'icurl.js'; ?></script>

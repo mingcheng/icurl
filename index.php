@@ -8,6 +8,9 @@
  * @link   http://www.gracecode.com/
  */
 
+// version
+define('ICURL_VERSION', '$Id$');
+
 require_once 'inc/func.inc.php';
 
 // 读取配置文件
