@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>iCurl - PHP Curl Client</title>
         <meta name="author" content="手气不错" />
         <link rel="icon" type="image/x-icon" href="http://www.gracecode.com/favicon.ico" />
         <link rel="stylesheet" href="http://a.tbcdn.cn/tbra/2.0/reset-grids.css" type="text/css" media="screen" />
+        <!--
         <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+        -->
+        <style type="text/css"><?php include 'style.css'; ?></style>
     </head>
     <body>
         <div id="page">
@@ -31,7 +35,7 @@
                             <label for="h">Header[<sub title="显示 HTTP 头">?</sub>]</label>
 
                         <input type="checkbox" name="b" id="b" />
-                            <label for="b">Binary[<sub title="二进制格式返回">?</sub>]</label>
+                            <label for="b">Attachment[<sub title="作为附件保存">?</sub>]</label>
 
                         <label for="c">Charset[<sub title="请求地址返回的字符集">?</sub>]</label>:
                             <input type="text" id="c" name="c" size="4" maxlength="8" value="utf-8" />
@@ -43,14 +47,14 @@
                             type="password" name="pass" id="pass" value="" /></li>
                     </ul>
 
-                    <label>Extra Params[<sub title="是否需要额外的参数">?</sub>]</label></p>
-                    <p><button class="add" id="add_param" title="增加参数">+</button></p>
+                    <label>Extra Params[<sub title="是否需要额外的参数">?</sub>]</label> 
+                        <button class="add" id="add_param" title="增加参数">+</button></p>
                     <ul id="params">
                         <li><input type="text" name="n[]" value="" />: <input
                                type="text" name="v[]" value="" /><button class="del" title="删除">X</button></li>
                     </ul>
 
-                <h4 id="show_extra"><label>Even Extra[<sub title="显示额外的参数">?</sub>]&raquo;</label></h4>
+                <h4 id="show_extra"><label>More[<sub title="显示额外的参数">?</sub>]&raquo;</label></h4>
                 <div id="extra" class="hidden">
                     <p>
                         <label for="ver">HTTP Version[<sub title="使用的 HTTP 协议版本">?</sub>]</label>:
@@ -78,13 +82,13 @@
                             Referer">?</sub>]</label>: <input type="text" id="ref" name="ref" value="" /></p>
                 </div>
                 <p><input class="button" type="submit" value="发送请求" /></p>
-                <textarea id="result"></textarea>
-                <iframe width="0" height="0" src="about:blank" class="hidden" frameborder="0" scrolling="no" name="result_iframe"
-                    id="result_iframe"></iframe>
+                <textarea id="result" class="hidden"></textarea>
             </fieldset>
         </form>
     </div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
-    <script type="text/javascript" src="icurl.js"></script>
+    <script type="text/javascript"><?php include 'icurl.js'; ?></script>
+    <iframe width="0" height="0" src="about:blank" class="hidden" frameborder="0" scrolling="no" name="result_iframe"
+        id="result_iframe"></iframe>
     </body>
 </html>

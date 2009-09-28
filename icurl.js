@@ -51,10 +51,9 @@ window.addEvent('domready', function() {
     });
 
     $('icurl').addEvent('submit', function(e){
-        //e.stop();
-
-        var isURL = /(http[s]?|ftp):\/\/[^\/\.]+?\..+\w$/i;
+        var isURL = /^http:\/\/[^\/\.]+?\..+\w*$/i;
         if (!isURL.test($('q').value)) {
+            e.stop();
             $('q').focus();
             return;
         }
