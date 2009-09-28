@@ -88,8 +88,10 @@ if ($need_auth) {
     $username = get_request_var('user', '');
     $password = get_request_var('pass', '');
     $options[CURLOPT_USERPWD] = sprintf('%s:%s', $username, $password);
+    /*
     $options[CURLOPT_SSL_VERIFYHOST] = 1;
     $options[CURLOPT_SSL_VERIFYPEER] = false;
+     */
     $options[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
 }
 

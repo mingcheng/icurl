@@ -1,6 +1,18 @@
 <?php
 // vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8 nobomb:
 
+if (!function_exists('curl_setopt_array')) {
+   function curl_setopt_array(&$ch, $curl_options)
+   {
+       foreach ($curl_options as $option => $value) {
+           if (!curl_setopt($ch, $option, $value)) {
+               return false;
+           } 
+       }
+       return true;
+   }
+}
+
 /**
  * 获取外部请求数据，如 POST、GET
  *

@@ -158,6 +158,9 @@ body #page {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
+    /*
+    font-family:Courier_New,Courier;
+    */
 }
 
 .ajax-loading {
