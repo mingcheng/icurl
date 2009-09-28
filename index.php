@@ -118,14 +118,6 @@ if (!empty($_POST)) {
     if ($binary) {
         $options[CURLOPT_HEADER] = false;
     }
-
-    // 如果需要保存
-    if ($save) {
-        $serialized = serialize($options);
-        if (@write_params($serialized, $Database)) {
-            $params_serialized = md5($serialized);
-        }
-    }
 } else {
     // 根据 URL 参数读取参数
     // df021be6750f1a463bdca54d07bf39e9
@@ -143,6 +135,13 @@ if (empty($options)) {
     echo_template();
     exit;
 }
+
+// 如果需要保存
+$serialized = serialize($options);
+if ($save) {
+    @write_params($serialized, $Database);
+}
+$params_serialized = md5($serialized);
 
 // just do it!
 $handle = curl_init();

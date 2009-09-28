@@ -12,22 +12,15 @@
                 var result = parent.$('result');
                 result.empty().removeClass('hidden').removeClass('ajax-loading');
                 result.innerHTML = $('result').innerHTML;
-                var link = parent.$('extra_link'), last = link.getAttribute('last') || '';
+                var link = parent.$('extra_link');
                 var serialized = '<?php echo $params_serialized; ?>';
-                if (!serialized.length && last) serialized = last;
-
-                if (serialized.length) {
+                if (serialized.length && parent.$('save').checked) {
                     var target = link.getAttribute('rel') + serialized +'/';
                     link.setAttribute('href', target);
                     link.removeClass('hidden').innerHTML = target;
-                } else if (!serialized.length && !last.length) {
-                    link.setAttribute('href', '#');
-                    link.removeClass('hidden').innerHTML = '生成标记失败（已经有人用过？）';
                 } else {
                     link.addClass('hidden');
                 }
-
-                link.setAttribute('last', serialized);
             });
         </script>
     </body>
