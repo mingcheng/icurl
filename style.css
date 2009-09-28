@@ -26,7 +26,7 @@ input[type=text] {
 }
 
 input.error {
-    border-color: #ffcc00;
+    border-color: #ffcc00!important;
 }
 
 li input {

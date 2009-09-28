@@ -54,9 +54,10 @@ window.addEvent('domready', function() {
         var isURL = /^http:\/\/[^\/\.]+?\..+\w*$/i;
         if (!isURL.test($('q').value)) {
             e.stop();
-            $('q').focus();
+            $('q').addClass('error').focus();
             return;
         }
+        $('q').removeClass('error');
 
         if ($('b').checked) {
             result.empty().addClass('hidden');
