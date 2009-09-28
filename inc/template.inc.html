@@ -54,6 +54,12 @@
                             <input type="text" id="c" name="c" size="4" maxlength="8" value="utf-8" />
                     </span>
                 </p>
+                <ul id="auth" class="hidden">
+                    <li><label for="user">用户名</label>: <input
+                        type="text" name="user" id="user" value="" /></li>
+                    <li><label for="pass">密码</label>: <input 
+                        type="password" name="pass" id="pass" value="" /></li>
+                </ul>
                 <p class="save">
                     <span>
                     <input type="checkbox" name="save" id="save" />
@@ -62,12 +68,6 @@
                         target="blank" rel="http://lab.gracecode.com/icurl/"></a>
                     </span>
                 </p>
-                <ul id="auth" class="hidden">
-                    <li><label for="user">用户名</label>: <input
-                        type="text" name="user" id="user" value="" /></li>
-                    <li><label for="pass">密码</label>: <input 
-                        type="password" name="pass" id="pass" value="" /></li>
-                </ul>
                 <p>
                     <label><button class="add" id="add_param" title="增加参数">+</button> 
                         自定义参数[<sub title="是否需要自定义参数">?</sub>]</label> 
