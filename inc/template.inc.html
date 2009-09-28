@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="page">
-        <form method="post" action="index.php" id="icurl" target="result_iframe">
+        <form method="post" action="index.php" id="icurl" autocomplete="off" target="result_iframe">
             <fieldset>
                 <legend>iCurl</legend>
                 <!--[if IE]>
@@ -33,7 +33,7 @@
                 <span><input type="text" name="q" value="" id="q" /> <input
                     size="4" maxlength="4" type="text" id="p" name="p" value="80" />
                 </p>
-                    <p>
+                <p>
                     <span>
                         <input type="checkbox" name="a" id="a" />
                             <label for="a">HTTP 验证[<sub title="是否需要用户验证">?</sub>]</label>
@@ -53,7 +53,8 @@
                         <label for="c">编码[<sub title="请求地址返回的字符集">?</sub>]</label>:
                             <input type="text" id="c" name="c" size="4" maxlength="8" value="utf-8" />
                     </span>
-                    </p>
+                </p>
+                <p>
                     <ul id="auth" class="hidden">
                         <li><label for="user">用户名</label>: <input
                             type="text" name="user" id="user" value="" /></li>
@@ -61,14 +62,15 @@
                             type="password" name="pass" id="pass" value="" /></li>
                     </ul>
 
-                    <button class="add" id="add_param" title="增加参数">+</button></p>
-                    <label>自定义参数[<sub title="是否需要自定义参数">?</sub>]</label> 
+                    <label><button class="add" id="add_param" title="增加参数">+</button> 
+                        自定义参数[<sub title="是否需要自定义参数">?</sub>]</label> 
                     <ul id="params">
                         <?php /*
                         <li><input type="text" name="n[]" value="" />: <input
                                type="text" name="v[]" value="" /><button class="del" title="删除">X</button></li>
                         */ ?>
                     </ul>
+                </p>
 
                 <h4 id="show_extra"><label>额外选项[<sub title="显示额外选项">?</sub>]&raquo;</label></h4>
                 <div id="extra" class="hidden">
@@ -76,7 +78,7 @@
                     <span>
                         <label for="ver">HTTP 版本[<sub title="使用的 HTTP 协议版本">?</sub>]</label>:
                         <select name="ver" id="ver">
-                            <option value="">AUTO</option>
+                            <option value="">自动选择</option>
                             <option value="v1.0">v1.0</option>
                             <option value="v1.1">v1.1</option>
                         </select>
@@ -105,7 +107,7 @@
                         <input type="text" id="ref" name="ref" value="" /></p>
                 </div>
                 <p><input class="button" type="submit" value="发送请求" /></p>
-                <textarea id="result" class="hidden"></textarea>
+                <textarea readonly="readonly" id="result" class="hidden"></textarea>
                 <span class="ver"><?php 
                     echo ICURL_VERSION; 
                 ?></span>

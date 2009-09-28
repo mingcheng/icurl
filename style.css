@@ -16,13 +16,13 @@ input {
     border: 1px solid #999;
     background: #fff url(images/textfield.gif) repeat-x top left;
     padding: 2px 3px;
-}
-
-input[type=text] {
-    width: 150px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
+}
+
+input[type=password], input[type=text] {
+    width: 150px;
 }
 
 input.error {
@@ -91,10 +91,6 @@ p > span {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-}
-
-li .button, li button {
-
 }
 
 label {

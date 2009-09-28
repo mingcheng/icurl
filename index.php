@@ -16,15 +16,15 @@
  *      初始化版本，完成基本功能
  */
 
-// check environment
+define('ICURL_VERSION', '$Id$');
+
+require_once 'inc/func.inc.php';
+
+// 检查扩展是否满足要求
 $extensions = get_loaded_extensions();
 if (!in_array('curl', $extensions) || !in_array('filter', $extensions) || !in_array('iconv', $extensions)) {
     die('Missing Extensions, Pls recheck ur PHP environment.');
 }
-
-define('ICURL_VERSION', '$Id$');
-
-require_once 'inc/func.inc.php';
 
 if (empty($_POST)) {
     echo_template();
@@ -57,7 +57,7 @@ $options = array(
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_URL => $request_url,
     CURLOPT_REFERER => $referer,
-    //    CURLOPT_HEADER => true
+    // CURLOPT_HEADER => true
 );
 
 // 是否显示 HTTP 头
@@ -91,14 +91,14 @@ if ($need_auth) {
 }
 
 switch($http_version) {
-case 'v1.0':
-    $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_0;
-    break;
-case 'v1.1':
-    $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
-    break;
-default:
-    $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_NONE;
+    case 'v1.0':
+        $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_0;
+        break;
+    case 'v1.1':
+        $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
+        break;
+    default:
+        $options[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_NONE;
 }
 
 if ($binary) {
