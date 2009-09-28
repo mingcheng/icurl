@@ -88,6 +88,9 @@ if ($need_auth) {
     $username = get_request_var('user', '');
     $password = get_request_var('pass', '');
     $options[CURLOPT_USERPWD] = sprintf('%s:%s', $username, $password);
+    $options[CURLOPT_SSL_VERIFYHOST] = 1;
+    $options[CURLOPT_SSL_VERIFYPEER] = false;
+    $options[CURLOPT_HTTPAUTH] = CURLAUTH_BASIC;
 }
 
 switch($http_version) {
@@ -105,8 +108,7 @@ if ($binary) {
     $options[CURLOPT_HEADER] = false;
 }
 
-//print_r($options); exit;
-
+// just do it!
 $handle = curl_init();
 curl_setopt_array($handle, $options);
 $result = curl_exec($handle);
