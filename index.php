@@ -16,6 +16,12 @@
  *      初始化版本，完成基本功能
  */
 
+// check environment
+$extensions = get_loaded_extensions();
+if (!in_array('curl', $extensions) || !in_array('filter', $extensions) || !in_array('iconv', $extensions)) {
+    die('Missing Extensions, Pls recheck ur PHP environment.');
+}
+
 define('ICURL_VERSION', '$Id$');
 
 require_once 'inc/func.inc.php';
