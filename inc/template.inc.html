@@ -30,7 +30,7 @@
                     <option value="DELETE">DELETE</option>
                     <option value="PUT">PUT</option>
                 </select>
-                <span><input type="text" name="q" value="http://" id="q" /> <input
+                <input type="text" name="q" value="http://" id="q" /> <input
                     size="4" maxlength="4" type="text" id="p" name="p" value="80" />
                 </p>
                 <p>
@@ -45,13 +45,21 @@
                     </span>
 
                     <span>
-                        <input type="checkbox" name="b" id="b" />
-                            <label for="b">另存为[<sub title="作为附件保存">?</sub>]</label>
+                    <input type="checkbox" name="b" id="b" />
+                        <label for="b">另存资源[<sub title="作为附件保存">?</sub>]</label>
                     </span>
 
                     <span>
                         <label for="c">编码[<sub title="请求地址返回的字符集">?</sub>]</label>:
                             <input type="text" id="c" name="c" size="4" maxlength="8" value="utf-8" />
+                    </span>
+                </p>
+                <p class="save">
+                    <span>
+                    <input type="checkbox" name="save" id="save" />
+                    <label for="save">保存参数[<sub title="保存请求参数，以便下次可直接访问">?</sub>]</label>
+                    <a href="#" title="通过此网址也可直接访问目标资源"
+                        target="blank">http://lab.gracecode.com/4545454545454545454/</a>
                     </span>
                 </p>
                 <p>
