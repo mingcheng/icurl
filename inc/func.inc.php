@@ -67,11 +67,28 @@ function build_params($name, $value) {
 }
 
 // 返回结果页
-function echo_result($result) {
+function echo_result($result, $params_serialized) {
     @include 'inc/iframe.inc.html';
 }
 
 // 显示主页面
 function echo_template() {
     die(@include 'inc/template.inc.html');
+}
+
+// Sqlite 数据库存储
+function write_params($data, &$db) {
+    $stmt = $db->prepare("INSERT INTO icurl (data, flag, _date) VALUES (?, ?, ?)");
+    $stmt->bindParam(1, $data);
+    $stmt->bindParam(2, md5($data));
+    $stmt->bindParam(3, time());
+    $stmt->execute();
+    return $db->lastInsertId() ? true : false;
+}
+
+
+function read_params($flag, &$db) {
+    $stmt = $db->prepare("SELECT id, data, flag FROM icurl WHERE flag = ? LIMIT 1");
+    $stmt->execute(array($flag));
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }

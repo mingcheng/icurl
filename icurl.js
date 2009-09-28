@@ -65,6 +65,10 @@ window.addEvent('domready', function() {
             result.empty().removeClass('hidden').addClass('ajax-loading');
         }
 
+        if (!$('save').checked) {
+            $('extra_link').addClass('hidden');
+        }
+
         /*
         this.set('send', {
             onComplete: function(response) {

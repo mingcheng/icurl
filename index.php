@@ -17,14 +17,25 @@
  */
 
 define('ICURL_VERSION', '$Id$');
+define('ICURL_DATABASE', 'data/sqlite.db');
 
 require_once 'inc/func.inc.php';
 
 // 检查扩展是否满足要求
 $extensions = get_loaded_extensions();
-if (!in_array('curl', $extensions) || !in_array('filter', $extensions) || !in_array('iconv', $extensions)) {
+if (!in_array('curl', $extensions) || !in_array('filter', $extensions)
+    || !in_array('iconv', $extensions) || !in_array('pdo_sqlite', $extensions)) {
     die('Missing Extensions, Pls recheck ur PHP environment.');
 }
+
+$Database = new PDO('sqlite:'.ICURL_DATABASE);
+
+/*
+$Database->exec('DROP TABLE icurl');
+$Database->exec('CREATE TABLE icurl (id integer primary key, data BLOB not NULL UNIQUE, flag varchar(255) not NULL UNIQUE, _date NUMERIC)');
+var_dump($Database->errorInfo());
+exit;
+ */
 
 if (!empty($_POST)) {
     // 根据 POST 信息获取参数
@@ -40,6 +51,7 @@ if (!empty($_POST)) {
     $charset      = get_request_var('c', 'utf-8');
     $referer      = get_request_var('ref', '');
     $http_version = get_request_var('ver', '');
+    $save         = get_request_var('save', '');
 
     if(filter_var($request_url, FILTER_VALIDATE_URL) === false) {
         echo_result("Sorry, $request_url not valid!");
@@ -106,14 +118,30 @@ if (!empty($_POST)) {
     if ($binary) {
         $options[CURLOPT_HEADER] = false;
     }
+
+    // 如果需要保存
+    if ($save) {
+        $serialized = serialize($options);
+        if (@write_params($serialized, $Database)) {
+            $params_serialized = md5($serialized);
+        }
+    }
 } else {
     // 根据 URL 参数读取参数
-
+    // df021be6750f1a463bdca54d07bf39e9
+    preg_match('/\/icurl\/(\w+)\//i', $_SERVER["REQUEST_URI"], $match);
+    if (isset($match[1]) && $serialized = read_params($match[1], $Database)) {
+        $load_from_database = true;
+        $options = unserialize($serialized['data']);
+        // 便于使用，不输出 HTTP 头
+        $options[CURLOPT_HEADER] = false;
+    }
 }
 
 // 仍然无，则显示程式界面
-if (empty($option)) {
-    echo_template(); exit;
+if (empty($options)) {
+    echo_template();
+    exit;
 }
 
 // just do it!
@@ -122,11 +150,14 @@ curl_setopt_array($handle, $options);
 $result = curl_exec($handle);
 
 // output
-if ($binary) {
+if ($load_from_database) {
+    echo $result;
+} else if ($binary) {
     header('Content-Disposition:attachment; filename="'.basename($options[CURLOPT_URL]).'"');
     echo $result;
 } else {
-    echo_result(iconv($charset, 'utf-8', $result));
+    @echo_result(iconv($charset, 'utf-8', $result), $params_serialized);
 }
 
 curl_close($handle);
+$Database = null;
