@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <div id="result"><?php echo htmlspecialchars($result); ?></div>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
+        <script type="text/javascript">
+            window.addEvent('domready', function() {
+                var result = parent.$('result');
+                result.empty().removeClass('hidden').removeClass('ajax-loading');
+                result.innerHTML = $('result').innerHTML;
+            });
+        </script>
+    </body>
+</html>

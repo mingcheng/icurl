@@ -14,7 +14,7 @@ window.addEvent('domready', function() {
 		div.appendChild(text);
 		return div.innerHTML;
     };
-    var result = $('result').empty();
+    var result = $('result').empty().addClass('hidden'), params = $('params').empty();
 
     /*
     result.addEvent('click', function(e){
@@ -25,9 +25,25 @@ window.addEvent('domready', function() {
 
     $('ag').value = navigator.userAgent;
 
-    $('show_extra').addEvent('click', function(e) {
+    $('show_extra').addEvent('click', function(e){
         $('extra')[$('extra').hasClass('hidden') ? 'removeClass' : 'addClass']('hidden');
         e.stop();
+    });
+
+    $('add_param').addEvent('click', function(e){
+        e.stop();
+        var p = document.createElement('li');
+        p.innerHTML = '<input type="text" name="n[]" value="" />: <input type="text" name="v[]" value="" />' + 
+                            '<button class="del" title="删除">X</button>';
+        params.appendChild(p);
+    });
+
+    params.addEvent('click', function(e){
+        var target = e.target;
+        if ('button' == target.tagName.toLowerCase() && 'del' == target.className) {
+            e.stop();
+            params.removeChild(target.parentNode);
+        }
     });
 
     $('a').addEvent('click', function(e) {
@@ -35,14 +51,27 @@ window.addEvent('domready', function() {
     });
 
     $('icurl').addEvent('submit', function(e){
-        e.stop();
+        //e.stop();
 
-        result.empty().removeClass('hidden').addClass('ajax-loading');
+        var isURL = /(http[s]?|ftp):\/\/[^\/\.]+?\..+\w$/i;
+        if (!isURL.test($('q').value)) {
+            $('q').focus();
+            return;
+        }
+
+        if ($('b').checked) {
+            result.empty().addClass('hidden');
+        } else {
+            result.empty().removeClass('hidden').addClass('ajax-loading');
+        }
+
+        /*
         this.set('send', {
             onComplete: function(response) {
                 result.removeClass('ajax-loading').set('html', escapeHTML(response));
             }
         });
         this.send();
+        */
     });
 });
