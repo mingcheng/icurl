@@ -19,7 +19,7 @@ set_time_limit(0);
 
 define('ICURL_VERSION',  '$Id$');
 define('ICURL_DATABASE', 'data/sqlite.db');                   // 本地数据库路径
-define('ICURL_BASEURL',  'http://lab.gracecode.com/icurl/');  // 应用 URL 地址
+define('ICURL_BASEURL',  'http://127.0.0.1/icurl/');  // 应用 URL 地址
 
 require_once 'inc/func.inc.php';
 
@@ -133,7 +133,7 @@ if (empty($options)) {
 
 // 如果需要保存
 $serialized = serialize($options);
-if ($save) {
+if ($save && !$binary) {
     @write_params($serialized, $Database);
 }
 $params_serialized = md5($serialized);
