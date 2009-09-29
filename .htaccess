@@ -5,4 +5,7 @@ Options -Indexes -MultiViews
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule . index.php [L]
+
+    RewriteCond %{HTTP_USER_AGENT} !^Mozilla/[0-9.]+
+    RewriteRule .* - [F]
 </IfModule>
