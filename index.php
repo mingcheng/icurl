@@ -15,6 +15,7 @@
  * [+] 2009-09-21
  *      初始化版本，完成基本功能
  */
+set_time_limit(0);
 
 define('ICURL_VERSION',  '$Id$');
 define('ICURL_DATABASE', 'data/sqlite.db');                   // 本地数据库路径

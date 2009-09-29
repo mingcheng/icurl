@@ -30,7 +30,8 @@
                     <option value="DELETE">DELETE</option>
                     <option value="PUT">PUT</option>
                 </select>
-                <input type="text" name="q" value="http://" id="q" /> <input
+                <input type="text" name="q" value="<?php 
+                    echo htmlspecialchars(get_request_var('q', 'http://', 'get')); ?>" id="q" /> <input
                     size="4" maxlength="4" type="text" id="p" name="p" value="80" />
                 </p>
                 <p>
