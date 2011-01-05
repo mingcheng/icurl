@@ -157,6 +157,8 @@ if (file_exists($cache_file) && (time() - filemtime($cache_file) < CACHE_TIME)) 
 
     // 保存数据到缓存
     file_put_contents($cache_file, $result);
+
+    curl_close($handle);
 }
 
 // output
@@ -169,5 +171,5 @@ if (isset($load_from_database)) {
     @echo_result(iconv($charset, 'utf-8', $result), $params_serialized);
 }
 
-curl_close($handle);
+// 关闭数据库
 $Database = null;
