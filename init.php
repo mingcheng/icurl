@@ -1,5 +1,5 @@
 <?php
-header('Content-type: text/plain');
+//header('Content-type: text/plain');
 define('ICURL_DATABASE', 'data/sqlite.db');
 
 $db = new PDO('sqlite:'.ICURL_DATABASE);

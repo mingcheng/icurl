@@ -9,17 +9,23 @@
  * @change
  *     [+]new feature  [*]improvement  [!]change  [x]bug fix
  *
+ * [*] 2011-01-05
+ *      增加缓存选项和功能
+ *
  * [+] 2009-09-28
  *      优化界面，完善脚本，增加 Sqlite 本地存储参数功能
  *
  * [+] 2009-09-21
  *      初始化版本，完成基本功能
  */
+
 set_time_limit(0);
 
-define('ICURL_VERSION',  '$Id$');
-define('ICURL_DATABASE', 'data/sqlite.db');                   // 本地数据库路径
-define('ICURL_BASEURL',  'http://127.0.0.1/icurl/');  // 应用 URL 地址
+define('DIR_CACHE',       'data/');  // 本地缓存目录
+define('CACHE_TIME',      3600);     // 缓存时间，默认一小时
+define('ICURL_VERSION',   '$Id$');
+define('ICURL_DATABASE',  'data/sqlite.db');    // 本地数据库路径
+define('ICURL_BASEURL',   'http://lab.gracecode.com/icurl/');  // 应用 URL 地址
 
 require_once 'inc/func.inc.php';
 
@@ -133,18 +139,28 @@ if (empty($options)) {
 
 // 如果需要保存
 $serialized = serialize($options);
-if ($save && !$binary) {
+if (isset($save) && !$binary) {
     @write_params($serialized, $Database);
 }
 $params_serialized = md5($serialized);
 
 // just do it!
-$handle = curl_init();
-curl_setopt_array($handle, $options);
-$result = curl_exec($handle);
+$cache_file = DIR_CACHE . '/' . $params_serialized;
+
+// 判断是否从缓存拿数据
+if (file_exists($cache_file) && (time() - filemtime($cache_file) < CACHE_TIME)) {
+    $result = file_get_contents($cache_file);
+} else {
+    $handle = curl_init();
+    curl_setopt_array($handle, $options);
+    $result = curl_exec($handle);
+
+    // 保存数据到缓存
+    file_put_contents($cache_file, $result);
+}
 
 // output
-if ($load_from_database) {
+if (isset($load_from_database)) {
     echo $result;
 } else if ($binary) {
     header('Content-Disposition:attachment; filename="'.basename($options[CURLOPT_URL]).'"');
