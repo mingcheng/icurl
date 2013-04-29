@@ -51,7 +51,7 @@ window.addEvent('domready', function() {
     });
 
     $('icurl').addEvent('submit', function(e){
-        var isURL = /^http:\/\/[^\/\.]+?\..+\w*$/i;
+        var isURL = /^http(s?):\/\/[^\/\.]+?\..+\w*$/i;
         if (!isURL.test($('q').value)) {
             e.stop();
             $('q').addClass('error').focus();
